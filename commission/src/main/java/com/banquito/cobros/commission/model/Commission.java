@@ -2,6 +2,7 @@ package com.banquito.cobros.commission.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -20,13 +21,13 @@ public class Commission implements Serializable {
     private String chargeDistribution;
 
     @Column(name = "TOTAL_VALUE", precision = 17, scale = 2, nullable = false)
-    private Double totalValue;
+    private BigDecimal totalValue;
 
     @Column(name = "COMPANY_VALUE", precision = 17, scale = 2, nullable = false)
-    private Double companyValue;
+    private BigDecimal companyValue;
 
     @Column(name = "DEBTOR_VALUE", precision = 17, scale = 2, nullable = false)
-    private Double debtorValue;
+    private BigDecimal debtorValue;
 
     @Column(name = "CREDITOR_ACCOUNT", length = 13, nullable = false)
     private String creditorAccount;
@@ -34,7 +35,7 @@ public class Commission implements Serializable {
     @Column(name = "COMPANY_ID", nullable = false)
     private Long companyId;
 
-    @OneToMany(mappedBy = "commission")
+    @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReceivablesCommission> receivablesCommission;
 
     public Commission() {
@@ -66,27 +67,27 @@ public class Commission implements Serializable {
         this.chargeDistribution = chargeDistribution;
     }
 
-    public Double getTotalValue() {
+    public BigDecimal getTotalValue() {
         return totalValue;
     }
 
-    public void setTotalValue(Double totalValue) {
+    public void setTotalValue(BigDecimal totalValue) {
         this.totalValue = totalValue;
     }
 
-    public Double getCompanyValue() {
+    public BigDecimal getCompanyValue() {
         return companyValue;
     }
 
-    public void setCompanyValue(Double companyValue) {
+    public void setCompanyValue(BigDecimal companyValue) {
         this.companyValue = companyValue;
     }
 
-    public Double getDebtorValue() {
+    public BigDecimal getDebtorValue() {
         return debtorValue;
     }
 
-    public void setDebtorValue(Double debtorValue) {
+    public void setDebtorValue(BigDecimal debtorValue) {
         this.debtorValue = debtorValue;
     }
 

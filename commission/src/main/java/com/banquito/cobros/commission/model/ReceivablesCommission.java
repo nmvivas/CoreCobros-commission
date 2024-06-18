@@ -12,11 +12,12 @@ public class ReceivablesCommission implements Serializable {
     @Column(name = "RECEIVABLES_COMMISSION_ID", nullable = false)
     private Long id;
 
-    @Column(name = "COMMISSION_ID", nullable = false)
-    private Long commissionId;
-
     @Column(name = "RECEIVABLES_ID", nullable = false)
     private Long receivablesId;
+
+    @ManyToOne
+    @JoinColumn(name = "COMMISSION_ID", nullable = false)
+    private Commission commission;
 
     public ReceivablesCommission() {
     }
@@ -31,14 +32,6 @@ public class ReceivablesCommission implements Serializable {
         this.id = id;
     }
 
-    public Long getCommissionId() {
-        return commissionId;
-    }
-
-    public void setCommissionId(Long commissionId) {
-        this.commissionId = commissionId;
-    }
-
     public Long getReceivablesId() {
         return receivablesId;
     }
@@ -47,9 +40,28 @@ public class ReceivablesCommission implements Serializable {
         this.receivablesId = receivablesId;
     }
 
+    public Commission getCommission() {
+        return commission;
+    }
+
+    public void setCommission(Commission commission) {
+        this.commission = commission;
+    }
+
+    public Long getCommissionId() {
+        return this.commission != null ? this.commission.getId() : null;
+    }
+
+    public void setCommissionId(Long commissionId) {
+        if (this.commission == null) {
+            this.commission = new Commission();
+        }
+        this.commission.setId(commissionId);
+    }
+
     @Override
     public String toString() {
-        return "ReceivablesCommission [id=" + id + ", commissionId=" + commissionId + ", receivablesId=" + receivablesId
+        return "ReceivablesCommission [id=" + id + ", commission=" + commission + ", receivablesId=" + receivablesId
                 + "]";
     }
 
