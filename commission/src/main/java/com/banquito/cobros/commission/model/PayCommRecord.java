@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "PAYMENT_COMMISSION_RECORD")
-public class PaymentCommissionRecord implements Serializable {
+@Table(name = "PAY_COMM_RECORD")
+public class PayCommRecord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PAYMENT_COMMISSION_ID", nullable = false)
+    @Column(name = "PAY_COMM_RECORD_ID", nullable = false)
     private Long id;
 
     @Column(name = "COMMISSION_ID", nullable = false)
@@ -21,7 +21,7 @@ public class PaymentCommissionRecord implements Serializable {
     @Column(name = "NOTE", length = 250)
     private String note;
 
-    public PaymentCommissionRecord() {
+    public PayCommRecord() {
     }
 
     public Long getId() {
@@ -78,7 +78,7 @@ public class PaymentCommissionRecord implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PaymentCommissionRecord other = (PaymentCommissionRecord) obj;
+        PayCommRecord other = (PayCommRecord) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
