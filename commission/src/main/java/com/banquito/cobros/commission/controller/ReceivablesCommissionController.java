@@ -1,6 +1,6 @@
 package com.banquito.cobros.commission.controller;
 
-import com.banquito.cobros.commission.model.ReceivablesCommission;
+import com.banquito.cobros.commission.dto.ReceivablesCommissionDTO;
 import com.banquito.cobros.commission.service.ReceivablesCommissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +21,9 @@ public class ReceivablesCommissionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReceivablesCommission>> getAllReceivablesCommissions() {
+    public ResponseEntity<List<ReceivablesCommissionDTO>> getAllReceivablesCommissions() {
         try {
-            List<ReceivablesCommission> receivablesCommissions = receivablesCommissionService
+            List<ReceivablesCommissionDTO> receivablesCommissions = receivablesCommissionService
                     .getAllReceivablesCommissions();
             return ResponseEntity.ok(receivablesCommissions);
         } catch (RuntimeException rte) {
@@ -33,9 +33,9 @@ public class ReceivablesCommissionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReceivablesCommission> getReceivablesCommissionById(@PathVariable Long id) {
+    public ResponseEntity<ReceivablesCommissionDTO> getReceivablesCommissionById(@PathVariable Long id) {
         try {
-            Optional<ReceivablesCommission> receivablesCommission = receivablesCommissionService
+            Optional<ReceivablesCommissionDTO> receivablesCommission = receivablesCommissionService
                     .getReceivablesCommissionById(id);
             return receivablesCommission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
         } catch (RuntimeException rte) {
@@ -45,11 +45,11 @@ public class ReceivablesCommissionController {
     }
 
     @PostMapping
-    public ResponseEntity<ReceivablesCommission> createReceivablesCommission(
-            @RequestBody ReceivablesCommission receivablesCommission) {
+    public ResponseEntity<ReceivablesCommissionDTO> createReceivablesCommission(
+            @RequestBody ReceivablesCommissionDTO receivablesCommissionDTO) {
         try {
-            ReceivablesCommission createdReceivablesCommission = receivablesCommissionService
-                    .saveReceivablesCommission(receivablesCommission);
+            ReceivablesCommissionDTO createdReceivablesCommission = receivablesCommissionService
+                    .saveReceivablesCommission(receivablesCommissionDTO);
             return ResponseEntity.ok(createdReceivablesCommission);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
@@ -58,17 +58,14 @@ public class ReceivablesCommissionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReceivablesCommission> updateReceivablesCommission(@PathVariable Long id,
-            @RequestBody ReceivablesCommission receivablesCommissionDetails) {
+    public ResponseEntity<ReceivablesCommissionDTO> updateReceivablesCommission(@PathVariable Long id,
+            @RequestBody ReceivablesCommissionDTO receivablesCommissionDTO) {
         try {
-            Optional<ReceivablesCommission> receivablesCommissionOptional = receivablesCommissionService
+            Optional<ReceivablesCommissionDTO> receivablesCommissionOptional = receivablesCommissionService
                     .getReceivablesCommissionById(id);
             if (receivablesCommissionOptional.isPresent()) {
-                ReceivablesCommission receivablesCommission = receivablesCommissionOptional.get();
-                receivablesCommission.setCommissionId(receivablesCommissionDetails.getCommissionId());
-                receivablesCommission.setReceivablesId(receivablesCommissionDetails.getReceivablesId());
-                ReceivablesCommission updatedReceivablesCommission = receivablesCommissionService
-                        .saveReceivablesCommission(receivablesCommission);
+                ReceivablesCommissionDTO updatedReceivablesCommission = receivablesCommissionService
+                        .saveReceivablesCommission(receivablesCommissionDTO);
                 return ResponseEntity.ok(updatedReceivablesCommission);
             } else {
                 return ResponseEntity.notFound().build();
@@ -82,7 +79,7 @@ public class ReceivablesCommissionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReceivablesCommission(@PathVariable Long id) {
         try {
-            Optional<ReceivablesCommission> receivablesCommissionOptional = receivablesCommissionService
+            Optional<ReceivablesCommissionDTO> receivablesCommissionOptional = receivablesCommissionService
                     .getReceivablesCommissionById(id);
             if (receivablesCommissionOptional.isPresent()) {
                 receivablesCommissionService.deleteReceivablesCommission(id);

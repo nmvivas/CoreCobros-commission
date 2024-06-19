@@ -1,9 +1,11 @@
 package com.banquito.cobros.commission.service;
 
 import com.banquito.cobros.commission.dto.CommissionDTO;
-import com.banquito.cobros.commission.util.mapper.CommissionMapper;
 import com.banquito.cobros.commission.model.Commission;
 import com.banquito.cobros.commission.repository.CommissionRepository;
+import com.banquito.cobros.commission.repository.PayCommRecordRepository;
+import com.banquito.cobros.commission.util.mapper.CommissionMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,13 @@ import java.util.stream.Collectors;
 public class CommissionService {
 
     private final CommissionRepository commissionRepository;
+    private final PayCommRecordRepository payCommRecordRepository;
     private final CommissionMapper commissionMapper;
 
-    public CommissionService(CommissionRepository commissionRepository) {
+    public CommissionService(CommissionRepository commissionRepository,
+            PayCommRecordRepository payCommRecordRepository) {
         this.commissionRepository = commissionRepository;
+        this.payCommRecordRepository = payCommRecordRepository;
         this.commissionMapper = CommissionMapper.INSTANCE;
     }
 
@@ -39,7 +44,11 @@ public class CommissionService {
         return commissionMapper.toDTO(savedCommission);
     }
 
+    @Transactional
     public void deleteCommission(Long id) {
+        // Elimina primero los registros dependientes
+        payCommRecordRepository.deleteByCommissionId(id);
+        // Luego elimina la comisión
         commissionRepository.deleteById(id);
     }
 }

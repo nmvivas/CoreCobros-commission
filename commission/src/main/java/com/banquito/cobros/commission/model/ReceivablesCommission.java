@@ -23,7 +23,6 @@ public class ReceivablesCommission implements Serializable {
     }
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
