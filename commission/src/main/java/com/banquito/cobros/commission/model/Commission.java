@@ -32,8 +32,8 @@ public class Commission implements Serializable {
     @Column(name = "CREDITOR_ACCOUNT", length = 13, nullable = false)
     private String creditorAccount;
 
-    @Column(name = "COMPANY_ID", nullable = false)
-    private Long companyId;
+    // @Column(name = "COMPANY_ID", nullable = false)
+    // private Long companyId;
 
     @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReceivablesCommission> receivablesCommission;
@@ -99,13 +99,13 @@ public class Commission implements Serializable {
         this.creditorAccount = creditorAccount;
     }
 
-    public Long getCompanyId() {
-        return companyId;
-    }
+    // public Long getCompanyId() {
+    // return companyId;
+    // }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
+    // public void setCompanyId(Long companyId) {
+    // this.companyId = companyId;
+    // }
 
     public List<ReceivablesCommission> getReceivablesCommission() {
         return receivablesCommission;
@@ -119,7 +119,7 @@ public class Commission implements Serializable {
     public String toString() {
         return "Commission [id=" + id + ", name=" + name + ", chargeDistribution=" + chargeDistribution +
                 ", totalValue=" + totalValue + ", companyValue=" + companyValue + ", debtorValue=" + debtorValue +
-                ", creditorAccount=" + creditorAccount + ", companyId=" + companyId + "]";
+                ", creditorAccount=" + creditorAccount + "]";
     }
 
     @Override

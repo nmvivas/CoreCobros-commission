@@ -1,6 +1,6 @@
 package com.banquito.cobros.commission.controller;
 
-import com.banquito.cobros.commission.model.Commission;
+import com.banquito.cobros.commission.dto.CommissionDTO;
 import com.banquito.cobros.commission.service.CommissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +21,9 @@ public class CommissionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Commission>> getAllCommissions() {
+    public ResponseEntity<List<CommissionDTO>> getAllCommissions() {
         try {
-            List<Commission> commissions = commissionService.getAllCommissions();
+            List<CommissionDTO> commissions = commissionService.getAllCommissions();
             return ResponseEntity.ok(commissions);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
@@ -32,9 +32,9 @@ public class CommissionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Commission> getCommissionById(@PathVariable Long id) {
+    public ResponseEntity<CommissionDTO> getCommissionById(@PathVariable Long id) {
         try {
-            Optional<Commission> commission = commissionService.getCommissionById(id);
+            Optional<CommissionDTO> commission = commissionService.getCommissionById(id);
             return commission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
         } catch (RuntimeException rte) {
             rte.printStackTrace();
@@ -43,9 +43,9 @@ public class CommissionController {
     }
 
     @PostMapping
-    public ResponseEntity<Commission> createCommission(@RequestBody Commission commission) {
+    public ResponseEntity<CommissionDTO> createCommission(@RequestBody CommissionDTO commissionDTO) {
         try {
-            Commission createdCommission = commissionService.saveCommission(commission);
+            CommissionDTO createdCommission = commissionService.saveCommission(commissionDTO);
             return ResponseEntity.ok(createdCommission);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
@@ -54,20 +54,12 @@ public class CommissionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Commission> updateCommission(@PathVariable Long id,
-            @RequestBody Commission commissionDetails) {
+    public ResponseEntity<CommissionDTO> updateCommission(@PathVariable Long id,
+            @RequestBody CommissionDTO commissionDetails) {
         try {
-            Optional<Commission> commissionOptional = commissionService.getCommissionById(id);
+            Optional<CommissionDTO> commissionOptional = commissionService.getCommissionById(id);
             if (commissionOptional.isPresent()) {
-                Commission commission = commissionOptional.get();
-                commission.setName(commissionDetails.getName());
-                commission.setChargeDistribution(commissionDetails.getChargeDistribution());
-                commission.setTotalValue(commissionDetails.getTotalValue());
-                commission.setCompanyValue(commissionDetails.getCompanyValue());
-                commission.setDebtorValue(commissionDetails.getDebtorValue());
-                commission.setCreditorAccount(commissionDetails.getCreditorAccount());
-                commission.setCompanyId(commissionDetails.getCompanyId());
-                Commission updatedCommission = commissionService.saveCommission(commission);
+                CommissionDTO updatedCommission = commissionService.saveCommission(commissionDetails);
                 return ResponseEntity.ok(updatedCommission);
             } else {
                 return ResponseEntity.notFound().build();
@@ -81,7 +73,7 @@ public class CommissionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCommission(@PathVariable Long id) {
         try {
-            Optional<Commission> commissionOptional = commissionService.getCommissionById(id);
+            Optional<CommissionDTO> commissionOptional = commissionService.getCommissionById(id);
             if (commissionOptional.isPresent()) {
                 commissionService.deleteCommission(id);
                 return ResponseEntity.noContent().build();
