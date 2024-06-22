@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,8 +49,11 @@ public class Commission implements Serializable {
     @Column(name = "CREDITOR_ACCOUNT", length = 13, nullable = false)
     private String creditorAccount;
 
-    @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ReceivablesCommission> receivablesCommission;
+
+    @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<PayCommRecord> payCommRecords;
 
     public Commission(Long id) {
         this.id = id;

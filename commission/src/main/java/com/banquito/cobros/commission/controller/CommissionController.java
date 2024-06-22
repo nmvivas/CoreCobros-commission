@@ -57,13 +57,8 @@ public class CommissionController {
     public ResponseEntity<CommissionDTO> updateCommission(@PathVariable Long id,
             @RequestBody CommissionDTO commissionDetails) {
         try {
-            Optional<CommissionDTO> commissionOptional = commissionService.getCommissionById(id);
-            if (commissionOptional.isPresent()) {
-                CommissionDTO updatedCommission = commissionService.saveCommission(commissionDetails);
-                return ResponseEntity.ok(updatedCommission);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+            CommissionDTO updatedCommission = commissionService.updateCommission(id, commissionDetails);
+            return ResponseEntity.ok(updatedCommission);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -73,13 +68,8 @@ public class CommissionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCommission(@PathVariable Long id) {
         try {
-            Optional<CommissionDTO> commissionOptional = commissionService.getCommissionById(id);
-            if (commissionOptional.isPresent()) {
-                commissionService.deleteCommission(id);
-                return ResponseEntity.noContent().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+            commissionService.deleteCommission(id);
+            return ResponseEntity.noContent().build();
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();

@@ -13,12 +13,12 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Entity
-@Table(name = "PAY_COMM_RECORD")
+@Table(name = "PAYMENT_COMMISSION_RECORD")
 public class PayCommRecord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PAY_COMM_RECORD_ID", nullable = false)
+    @Column(name = "PAYMENT_COMMISSION_ID", nullable = false)
     private Long id;
 
     @Column(name = "COMMISSION_ID", nullable = false)
@@ -29,6 +29,10 @@ public class PayCommRecord implements Serializable {
 
     @Column(name = "NOTE", length = 250)
     private String note;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMMISSION_ID", referencedColumnName = "COMMISSION_ID", insertable = false, updatable = false)
+    private Commission commission;
 
     public PayCommRecord(Long id) {
         this.id = id;

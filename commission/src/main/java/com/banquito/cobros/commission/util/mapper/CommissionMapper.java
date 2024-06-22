@@ -4,6 +4,7 @@ import com.banquito.cobros.commission.dto.CommissionDTO;
 import com.banquito.cobros.commission.model.Commission;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(uses = ReceivablesCommissionMapper.class)
@@ -15,4 +16,6 @@ public interface CommissionMapper {
 
     @Mapping(source = "receivablesCommission", target = "receivablesCommission")
     Commission toEntity(CommissionDTO commissionDTO);
+
+    void updateEntityFromDTO(CommissionDTO dto, @MappingTarget Commission entity);
 }

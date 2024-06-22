@@ -46,9 +46,20 @@ public class CommissionService {
 
     @Transactional
     public void deleteCommission(Long id) {
-        // Elimina primero los registros dependientes
         payCommRecordRepository.deleteByCommissionId(id);
-        // Luego elimina la comisión
         commissionRepository.deleteById(id);
+    }
+
+    @Transactional
+    public CommissionDTO updateCommission(Long id, CommissionDTO commissionDTO) {
+        Optional<Commission> commissionOptional = commissionRepository.findById(id);
+        if (commissionOptional.isPresent()) {
+            Commission existingCommission = commissionOptional.get();
+            commissionMapper.updateEntityFromDTO(commissionDTO, existingCommission);
+            Commission updatedCommission = commissionRepository.save(existingCommission);
+            return commissionMapper.toDTO(updatedCommission);
+        } else {
+            throw new RuntimeException("Commission not found");
+        }
     }
 }

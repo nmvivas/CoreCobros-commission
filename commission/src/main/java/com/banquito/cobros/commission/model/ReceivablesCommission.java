@@ -1,19 +1,12 @@
 package com.banquito.cobros.commission.model;
 
-import java.io.Serializable;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Getter
@@ -29,10 +22,10 @@ public class ReceivablesCommission implements Serializable {
     private Long id;
 
     @Column(name = "RECEIVABLES_ID", nullable = false)
-    private Long receivablesId;
+    private Integer receivablesId;
 
-    @ManyToOne
-    @JoinColumn(name = "COMMISSION_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMMISSION_ID", referencedColumnName = "COMMISSION_ID", insertable = false, updatable = false)
     private Commission commission;
 
     public ReceivablesCommission(Long id) {
