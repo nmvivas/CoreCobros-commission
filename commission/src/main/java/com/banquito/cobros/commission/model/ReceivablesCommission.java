@@ -1,8 +1,24 @@
 package com.banquito.cobros.commission.model;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "RECEIVABLES_COMMISSION")
 public class ReceivablesCommission implements Serializable {
@@ -19,49 +35,8 @@ public class ReceivablesCommission implements Serializable {
     @JoinColumn(name = "COMMISSION_ID", nullable = false)
     private Commission commission;
 
-    public ReceivablesCommission() {
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public ReceivablesCommission(Long id) {
         this.id = id;
-    }
-
-    public Long getReceivablesId() {
-        return receivablesId;
-    }
-
-    public void setReceivablesId(Long receivablesId) {
-        this.receivablesId = receivablesId;
-    }
-
-    public Commission getCommission() {
-        return commission;
-    }
-
-    public void setCommission(Commission commission) {
-        this.commission = commission;
-    }
-
-    public Long getCommissionId() {
-        return this.commission != null ? this.commission.getId() : null;
-    }
-
-    public void setCommissionId(Long commissionId) {
-        if (this.commission == null) {
-            this.commission = new Commission();
-        }
-        this.commission.setId(commissionId);
-    }
-
-    @Override
-    public String toString() {
-        return "ReceivablesCommission [id=" + id + ", commission=" + commission + ", receivablesId=" + receivablesId
-                + "]";
     }
 
     @Override

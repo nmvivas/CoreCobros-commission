@@ -1,8 +1,17 @@
 package com.banquito.cobros.commission.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "PAY_COMM_RECORD")
 public class PayCommRecord implements Serializable {
@@ -21,45 +30,8 @@ public class PayCommRecord implements Serializable {
     @Column(name = "NOTE", length = 250)
     private String note;
 
-    public PayCommRecord() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public PayCommRecord(Long id) {
         this.id = id;
-    }
-
-    public Integer getCommissionId() {
-        return commissionId;
-    }
-
-    public void setCommissionId(Integer commissionId) {
-        this.commissionId = commissionId;
-    }
-
-    public Integer getPaymentRecordId() {
-        return paymentRecordId;
-    }
-
-    public void setPaymentRecordId(Integer paymentRecordId) {
-        this.paymentRecordId = paymentRecordId;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    @Override
-    public String toString() {
-        return "PayCommRecord [id=" + id + ", commissionId=" + commissionId + ", paymentRecordId=" + paymentRecordId
-                + ", note=" + note + "]";
     }
 
     @Override

@@ -1,10 +1,26 @@
 package com.banquito.cobros.commission.model;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "COMMISSION")
 public class Commission implements Serializable {
@@ -35,79 +51,8 @@ public class Commission implements Serializable {
     @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReceivablesCommission> receivablesCommission;
 
-    public Commission() {
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Commission(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getChargeDistribution() {
-        return chargeDistribution;
-    }
-
-    public void setChargeDistribution(String chargeDistribution) {
-        this.chargeDistribution = chargeDistribution;
-    }
-
-    public BigDecimal getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(BigDecimal totalValue) {
-        this.totalValue = totalValue;
-    }
-
-    public BigDecimal getCompanyValue() {
-        return companyValue;
-    }
-
-    public void setCompanyValue(BigDecimal companyValue) {
-        this.companyValue = companyValue;
-    }
-
-    public BigDecimal getDebtorValue() {
-        return debtorValue;
-    }
-
-    public void setDebtorValue(BigDecimal debtorValue) {
-        this.debtorValue = debtorValue;
-    }
-
-    public String getCreditorAccount() {
-        return creditorAccount;
-    }
-
-    public void setCreditorAccount(String creditorAccount) {
-        this.creditorAccount = creditorAccount;
-    }
-
-    public List<ReceivablesCommission> getReceivablesCommission() {
-        return receivablesCommission;
-    }
-
-    public void setReceivablesCommission(List<ReceivablesCommission> receivablesCommission) {
-        this.receivablesCommission = receivablesCommission;
-    }
-
-    @Override
-    public String toString() {
-        return "Commission [id=" + id + ", name=" + name + ", chargeDistribution=" + chargeDistribution +
-                ", totalValue=" + totalValue + ", companyValue=" + companyValue + ", debtorValue=" + debtorValue +
-                ", creditorAccount=" + creditorAccount + "]";
     }
 
     @Override
