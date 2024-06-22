@@ -56,6 +56,7 @@ public class CommissionService {
         if (commissionOptional.isPresent()) {
             Commission existingCommission = commissionOptional.get();
             commissionMapper.updateEntityFromDTO(commissionDTO, existingCommission);
+            existingCommission.setId(id); // Asegurarse de que el ID no cambie
             Commission updatedCommission = commissionRepository.save(existingCommission);
             return commissionMapper.toDTO(updatedCommission);
         } else {
