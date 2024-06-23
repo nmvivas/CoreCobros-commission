@@ -11,10 +11,10 @@ import org.mapstruct.factory.Mappers;
 public interface CommissionMapper {
     CommissionMapper INSTANCE = Mappers.getMapper(CommissionMapper.class);
 
-    @Mapping(source = "receivablesCommission", target = "receivablesCommission")
+    @Mapping(source = "receivableCommission", target = "receivableCommission")
     CommissionDTO toDTO(Commission commission);
 
-    @Mapping(source = "receivablesCommission", target = "receivablesCommission")
+    @Mapping(source = "receivableCommission", target = "receivableCommission")
     Commission toEntity(CommissionDTO commissionDTO);
 
     void updateEntityFromDTO(CommissionDTO dto, @MappingTarget Commission entity);
