@@ -33,7 +33,7 @@ public class ReceivableCommissionController {
     public ResponseEntity<List<ReceivableCommissionDTO>> getAllReceivableCommissions() {
         try {
             List<ReceivableCommissionDTO> receivableCommissions = receivableCommissionService
-                    .getAllReceivablesCommissions();
+                    .getAllReceivableCommissions();
             return ResponseEntity.ok(receivableCommissions);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
@@ -44,9 +44,9 @@ public class ReceivableCommissionController {
     @GetMapping("/{id}")
     public ResponseEntity<ReceivableCommissionDTO> getReceivableCommissionById(@PathVariable Long id) {
         try {
-            Optional<ReceivableCommissionDTO> receivablesCommission = receivableCommissionService
-                    .getReceivablesCommissionById(id);
-            return receivablesCommission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+            Optional<ReceivableCommissionDTO> receivableCommission = receivableCommissionService
+                    .getReceivableCommissionById(id);
+            return receivableCommission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -55,11 +55,11 @@ public class ReceivableCommissionController {
 
     @PostMapping
     public ResponseEntity<ReceivableCommissionDTO> createReceivableCommission(
-            @RequestBody ReceivableCommissionDTO receivablesCommissionDTO) {
+            @RequestBody ReceivableCommissionDTO receivableCommissionDTO) {
         try {
-            ReceivableCommissionDTO createdReceivablesCommission = receivableCommissionService
-                    .saveReceivablesCommission(receivablesCommissionDTO);
-            return ResponseEntity.ok(createdReceivablesCommission);
+            ReceivableCommissionDTO createdReceivableCommission = receivableCommissionService
+                    .saveReceivableCommission(receivableCommissionDTO);
+            return ResponseEntity.ok(createdReceivableCommission);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -68,13 +68,13 @@ public class ReceivableCommissionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ReceivableCommissionDTO> updateReceivableCommission(@PathVariable Long id,
-            @RequestBody ReceivableCommissionDTO receivablesCommissionDTO) {
+            @RequestBody ReceivableCommissionDTO receivableCommissionDTO) {
         try {
             Optional<ReceivableCommissionDTO> receivablesCommissionOptional = receivableCommissionService
-                    .getReceivablesCommissionById(id);
+                    .getReceivableCommissionById(id);
             if (receivablesCommissionOptional.isPresent()) {
                 ReceivableCommissionDTO updatedReceivablesCommission = receivableCommissionService
-                        .saveReceivablesCommission(receivablesCommissionDTO);
+                        .saveReceivableCommission(receivableCommissionDTO);
                 return ResponseEntity.ok(updatedReceivablesCommission);
             } else {
                 return ResponseEntity.notFound().build();
@@ -89,9 +89,9 @@ public class ReceivableCommissionController {
     public ResponseEntity<Void> deleteReceivableCommission(@PathVariable Long id) {
         try {
             Optional<ReceivableCommissionDTO> receivablesCommissionOptional = receivableCommissionService
-                    .getReceivablesCommissionById(id);
+                    .getReceivableCommissionById(id);
             if (receivablesCommissionOptional.isPresent()) {
-                receivableCommissionService.deleteReceivablesCommission(id);
+                receivableCommissionService.deleteReceivableCommission(id);
                 return ResponseEntity.noContent().build();
             } else {
                 return ResponseEntity.notFound().build();

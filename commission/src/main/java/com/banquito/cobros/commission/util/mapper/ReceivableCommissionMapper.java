@@ -11,8 +11,8 @@ public interface ReceivableCommissionMapper {
     ReceivableCommissionMapper INSTANCE = Mappers.getMapper(ReceivableCommissionMapper.class);
 
     @Mapping(source = "commission.id", target = "commissionId")
-    ReceivableCommissionDTO toDTO(ReceivableCommission receivablesCommission);
+    ReceivableCommissionDTO toDTO(ReceivableCommission receivableCommission);
 
     @Mapping(source = "commissionId", target = "commission.id")
-    ReceivableCommission toEntity(ReceivableCommissionDTO receivablesCommissionDTO);
+    ReceivableCommission toEntity(ReceivableCommissionDTO receivableCommissionDTO);
 }

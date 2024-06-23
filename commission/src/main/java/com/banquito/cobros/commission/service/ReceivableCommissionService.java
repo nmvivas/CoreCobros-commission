@@ -21,25 +21,25 @@ public class ReceivableCommissionService {
         this.receivableCommissionMapper = ReceivableCommissionMapper.INSTANCE;
     }
 
-    public List<ReceivableCommissionDTO> getAllReceivablesCommissions() {
+    public List<ReceivableCommissionDTO> getAllReceivableCommissions() {
         List<ReceivableCommission> receivableCommissions = receivableCommissionRepository.findAll();
         return receivableCommissions.stream()
                 .map(receivableCommissionMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<ReceivableCommissionDTO> getReceivablesCommissionById(Long id) {
+    public Optional<ReceivableCommissionDTO> getReceivableCommissionById(Long id) {
         Optional<ReceivableCommission> receivableCommission = receivableCommissionRepository.findById(id);
         return receivableCommission.map(receivableCommissionMapper::toDTO);
     }
 
-    public ReceivableCommissionDTO saveReceivablesCommission(ReceivableCommissionDTO receivablesCommissionDTO) {
-        ReceivableCommission receivableCommission = receivableCommissionMapper.toEntity(receivablesCommissionDTO);
+    public ReceivableCommissionDTO saveReceivableCommission(ReceivableCommissionDTO receivableCommissionDTO) {
+        ReceivableCommission receivableCommission = receivableCommissionMapper.toEntity(receivableCommissionDTO);
         ReceivableCommission savedReceivableCommission = receivableCommissionRepository.save(receivableCommission);
         return receivableCommissionMapper.toDTO(savedReceivableCommission);
     }
 
-    public void deleteReceivablesCommission(Long id) {
+    public void deleteReceivableCommission(Long id) {
         receivableCommissionRepository.deleteById(id);
     }
 }
