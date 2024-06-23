@@ -50,7 +50,7 @@ public class Commission implements Serializable {
     private String creditorAccount;
 
     @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<ReceivablesCommission> receivablesCommission;
+    private List<ReceivableCommission> receivablesCommission;
 
     @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<PayCommRecord> payCommRecords;

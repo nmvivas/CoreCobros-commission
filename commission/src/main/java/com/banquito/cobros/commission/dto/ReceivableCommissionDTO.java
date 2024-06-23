@@ -5,9 +5,9 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ReceivablesCommissionDTO {
+public class ReceivableCommissionDTO {
 
     private Long id;
     private Long commissionId;
-    private Long receivablesId;
+    private Long receivableId;
 }

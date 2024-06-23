@@ -1,6 +1,5 @@
 package com.banquito.cobros.commission.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,27 +7,37 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "RECEIVABLES_COMMISSION")
-public class ReceivablesCommission implements Serializable {
+@Table(name = "RECEIVABLE_COMMISSION")
+public class ReceivableCommission implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RECEIVABLES_COMMISSION_ID", nullable = false)
+    @Column(name = "RECEIVABLE_COMMISSION_ID", nullable = false)
     private Long id;
 
-    @Column(name = "RECEIVABLES_ID", nullable = false)
-    private Integer receivablesId;
+    @Column(name = "RECEIVABLE_ID", nullable = false)
+    private Integer receivableId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMISSION_ID", referencedColumnName = "COMMISSION_ID", insertable = false, updatable = false)
     private Commission commission;
 
-    public ReceivablesCommission(Long id) {
+    public ReceivableCommission(Long id) {
         this.id = id;
     }
 
@@ -48,7 +57,7 @@ public class ReceivablesCommission implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ReceivablesCommission other = (ReceivablesCommission) obj;
+        ReceivableCommission other = (ReceivableCommission) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = ReceivablesCommissionMapper.class)
+@Mapper(uses = ReceivableCommissionMapper.class)
 public interface CommissionMapper {
     CommissionMapper INSTANCE = Mappers.getMapper(CommissionMapper.class);
 

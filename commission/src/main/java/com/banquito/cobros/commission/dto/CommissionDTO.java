@@ -17,5 +17,5 @@ public class CommissionDTO {
     private BigDecimal companyValue;
     private BigDecimal debtorValue;
     private String creditorAccount;
-    private List<ReceivablesCommissionDTO> receivablesCommission;
+    private List<ReceivableCommissionDTO> receivableCommission;
 }
