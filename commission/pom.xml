@@ -11,9 +11,9 @@
 	</parent>
 	<groupId>com.banquito.cobros</groupId>
 	<artifactId>commission</artifactId>
-	<version>V1.0</version>
+	<version>V1.1</version>
 	<name>commission</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Commission APIs REST</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
