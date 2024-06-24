@@ -2,9 +2,9 @@ package com.banquito.cobros.commission.controller;
 
 import com.banquito.cobros.commission.dto.ReceivableCommissionDTO;
 import com.banquito.cobros.commission.service.ReceivableCommissionService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +29,7 @@ public class ReceivableCommissionController {
         this.receivableCommissionService = receivableCommissionService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReceivableCommissionDTO>> getAllReceivableCommissions() {
         try {
             List<ReceivableCommissionDTO> receivableCommissions = receivableCommissionService
@@ -41,7 +41,7 @@ public class ReceivableCommissionController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceivableCommissionDTO> getReceivableCommissionById(@PathVariable Long id) {
         try {
             Optional<ReceivableCommissionDTO> receivableCommission = receivableCommissionService
@@ -53,7 +53,7 @@ public class ReceivableCommissionController {
         }
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceivableCommissionDTO> createReceivableCommission(
             @RequestBody ReceivableCommissionDTO receivableCommissionDTO) {
         try {
@@ -66,7 +66,7 @@ public class ReceivableCommissionController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceivableCommissionDTO> updateReceivableCommission(@PathVariable Long id,
             @RequestBody ReceivableCommissionDTO receivableCommissionDTO) {
         try {
@@ -76,23 +76,6 @@ public class ReceivableCommissionController {
                 ReceivableCommissionDTO updatedReceivablesCommission = receivableCommissionService
                         .saveReceivableCommission(receivableCommissionDTO);
                 return ResponseEntity.ok(updatedReceivablesCommission);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReceivableCommission(@PathVariable Long id) {
-        try {
-            Optional<ReceivableCommissionDTO> receivablesCommissionOptional = receivableCommissionService
-                    .getReceivableCommissionById(id);
-            if (receivablesCommissionOptional.isPresent()) {
-                receivableCommissionService.deleteReceivableCommission(id);
-                return ResponseEntity.noContent().build();
             } else {
                 return ResponseEntity.notFound().build();
             }

@@ -16,13 +16,11 @@ import java.util.stream.Collectors;
 public class CommissionService {
 
     private final CommissionRepository commissionRepository;
-    private final PayCommRecordRepository payCommRecordRepository;
     private final CommissionMapper commissionMapper;
 
     public CommissionService(CommissionRepository commissionRepository,
             PayCommRecordRepository payCommRecordRepository) {
         this.commissionRepository = commissionRepository;
-        this.payCommRecordRepository = payCommRecordRepository;
         this.commissionMapper = CommissionMapper.INSTANCE;
     }
 
@@ -45,22 +43,16 @@ public class CommissionService {
     }
 
     @Transactional
-    public void deleteCommission(Long id) {
-        payCommRecordRepository.deleteByCommissionId(id);
-        commissionRepository.deleteById(id);
-    }
-
-    @Transactional
     public CommissionDTO updateCommission(Long id, CommissionDTO commissionDTO) {
         Optional<Commission> commissionOptional = commissionRepository.findById(id);
         if (commissionOptional.isPresent()) {
             Commission existingCommission = commissionOptional.get();
             commissionMapper.updateEntityFromDTO(commissionDTO, existingCommission);
-            existingCommission.setId(id); // Asegurarse de que el ID no cambie
+            existingCommission.setId(id);
             Commission updatedCommission = commissionRepository.save(existingCommission);
             return commissionMapper.toDTO(updatedCommission);
         } else {
-            throw new RuntimeException("Commission not found");
+            throw new RuntimeException("Comision no encontrada");
         }
     }
 }

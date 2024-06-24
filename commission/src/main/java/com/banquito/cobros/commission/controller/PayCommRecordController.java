@@ -2,9 +2,9 @@ package com.banquito.cobros.commission.controller;
 
 import com.banquito.cobros.commission.model.PayCommRecord;
 import com.banquito.cobros.commission.service.PayCommRecordService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +29,7 @@ public class PayCommRecordController {
         this.payCommRecordService = payCommRecordService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PayCommRecord>> getAllPayCommRecords() {
         try {
             List<PayCommRecord> payCommRecords = payCommRecordService.getAllPayCommRecords();
@@ -40,7 +40,7 @@ public class PayCommRecordController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PayCommRecord> getPayCommRecordById(@PathVariable Long id) {
         try {
             Optional<PayCommRecord> payCommRecord = payCommRecordService.getPayCommRecordById(id);
@@ -51,7 +51,7 @@ public class PayCommRecordController {
         }
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PayCommRecord> createPayCommRecord(@RequestBody PayCommRecord payCommRecord) {
         try {
             PayCommRecord createdPayCommRecord = payCommRecordService.savePayCommRecord(payCommRecord);
@@ -62,7 +62,7 @@ public class PayCommRecordController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PayCommRecord> updatePayCommRecord(@PathVariable Long id,
             @RequestBody PayCommRecord payCommRecordDetails) {
         try {
@@ -74,22 +74,6 @@ public class PayCommRecordController {
                 payCommRecord.setNote(payCommRecordDetails.getNote());
                 PayCommRecord updatedPayCommRecord = payCommRecordService.savePayCommRecord(payCommRecord);
                 return ResponseEntity.ok(updatedPayCommRecord);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePayCommRecord(@PathVariable Long id) {
-        try {
-            Optional<PayCommRecord> payCommRecordOptional = payCommRecordService.getPayCommRecordById(id);
-            if (payCommRecordOptional.isPresent()) {
-                payCommRecordService.deletePayCommRecord(id);
-                return ResponseEntity.noContent().build();
             } else {
                 return ResponseEntity.notFound().build();
             }

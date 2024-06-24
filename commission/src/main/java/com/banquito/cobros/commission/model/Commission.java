@@ -1,5 +1,7 @@
 package com.banquito.cobros.commission.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,9 +53,11 @@ public class Commission implements Serializable {
     private String creditorAccount;
 
     @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
     private List<ReceivableCommission> receivableCommission;
 
     @OneToMany(mappedBy = "commission", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
     private List<PayCommRecord> payCommRecords;
 
     public Commission(Long id) {

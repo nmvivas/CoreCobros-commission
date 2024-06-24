@@ -1,11 +1,13 @@
 package com.banquito.cobros.commission.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +43,7 @@ public class PayCommRecord implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMISSION_ID", referencedColumnName = "COMMISSION_ID", insertable = false, updatable = false)
+    @JsonBackReference
     private Commission commission;
 
     public PayCommRecord(Long id) {

@@ -38,8 +38,4 @@ public class ReceivableCommissionService {
         ReceivableCommission savedReceivableCommission = receivableCommissionRepository.save(receivableCommission);
         return receivableCommissionMapper.toDTO(savedReceivableCommission);
     }
-
-    public void deleteReceivableCommission(Long id) {
-        receivableCommissionRepository.deleteById(id);
-    }
 }

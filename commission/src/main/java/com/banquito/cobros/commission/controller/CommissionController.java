@@ -4,7 +4,6 @@ import com.banquito.cobros.commission.dto.CommissionDTO;
 import com.banquito.cobros.commission.service.CommissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,17 +67,6 @@ public class CommissionController {
         try {
             CommissionDTO updatedCommission = commissionService.updateCommission(id, commissionDetails);
             return ResponseEntity.ok(updatedCommission);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCommission(@PathVariable Long id) {
-        try {
-            commissionService.deleteCommission(id);
-            return ResponseEntity.noContent().build();
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();

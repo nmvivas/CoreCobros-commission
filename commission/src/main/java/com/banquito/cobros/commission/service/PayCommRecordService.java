@@ -25,8 +25,4 @@ public class PayCommRecordService {
     public PayCommRecord savePayCommRecord(PayCommRecord payCommRecord) {
         return payCommRecordRepository.save(payCommRecord);
     }
-
-    public void deletePayCommRecord(Long id) {
-        payCommRecordRepository.deleteById(id);
-    }
 }
