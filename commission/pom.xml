@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.banquito.cobros</groupId>
 	<artifactId>commission</artifactId>
-	<version>V1.2</version>
+	<version>V1.3</version>
 	<name>commission</name>
 	<description>Commission APIs REST</description>
 	<properties>
