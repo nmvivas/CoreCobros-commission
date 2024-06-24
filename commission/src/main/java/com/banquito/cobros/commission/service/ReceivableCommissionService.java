@@ -33,6 +33,14 @@ public class ReceivableCommissionService {
         return receivableCommission.map(receivableCommissionMapper::toDTO);
     }
 
+    public List<ReceivableCommissionDTO> getReceivableCommissionsByReceivableId(Long receivableId) {
+        List<ReceivableCommission> receivableCommissions = receivableCommissionRepository
+                .findByReceivableId(receivableId);
+        return receivableCommissions.stream()
+                .map(receivableCommissionMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public ReceivableCommissionDTO saveReceivableCommission(ReceivableCommissionDTO receivableCommissionDTO) {
         ReceivableCommission receivableCommission = receivableCommissionMapper.toEntity(receivableCommissionDTO);
         ReceivableCommission savedReceivableCommission = receivableCommissionRepository.save(receivableCommission);

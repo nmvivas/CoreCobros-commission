@@ -7,9 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,32 +50,13 @@ public class ReceivableCommissionController {
         }
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReceivableCommissionDTO> createReceivableCommission(
-            @RequestBody ReceivableCommissionDTO receivableCommissionDTO) {
+    @GetMapping(value = "/receivable/{receivableId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReceivableCommissionDTO>> getReceivableCommissionsByReceivableId(
+            @PathVariable Long receivableId) {
         try {
-            ReceivableCommissionDTO createdReceivableCommission = receivableCommissionService
-                    .saveReceivableCommission(receivableCommissionDTO);
-            return ResponseEntity.ok(createdReceivableCommission);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReceivableCommissionDTO> updateReceivableCommission(@PathVariable Long id,
-            @RequestBody ReceivableCommissionDTO receivableCommissionDTO) {
-        try {
-            Optional<ReceivableCommissionDTO> receivablesCommissionOptional = receivableCommissionService
-                    .getReceivableCommissionById(id);
-            if (receivablesCommissionOptional.isPresent()) {
-                ReceivableCommissionDTO updatedReceivablesCommission = receivableCommissionService
-                        .saveReceivableCommission(receivableCommissionDTO);
-                return ResponseEntity.ok(updatedReceivablesCommission);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+            List<ReceivableCommissionDTO> receivableCommissions = receivableCommissionService
+                    .getReceivableCommissionsByReceivableId(receivableId);
+            return ResponseEntity.ok(receivableCommissions);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();
